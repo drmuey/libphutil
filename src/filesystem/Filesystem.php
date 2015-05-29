@@ -918,10 +918,10 @@ final class Filesystem {
    */
   public static function resolveBinary($binary) {
     if (phutil_is_windows()) {
-      list($err, $stdout) = exec_manual('where %s', $binary);
+      list($err, $stdout) = exec_manual('where.exe %s', $binary); // .exe avoids failure when 'where' is an alias to 'Where-Object'
       $stdout = phutil_split_lines($stdout);
 
-      // If `where %s` could not find anything, check for relative binary
+      // If `where.exe %s` could not find anything, check for relative binary
       if ($err) {
         $path = self::resolvePath($binary);
         if (self::pathExists($path)) {
